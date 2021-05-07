@@ -15,7 +15,7 @@
 		"@types/node": "latest",
 		"modbus-pdu" : "^1.13.0"
 	},
-	"optionalDependencies" : {
+	"peerDependencies" : {
 		"serialport" : ">=1.7.1 <7"
 	},
 	"devDependencies" : {
