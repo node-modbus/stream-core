@@ -1,9 +1,7 @@
 /// <reference types="node" />
-import { Server, Socket, AddressInfo } from "net";
-import { Readable } from "stream";
 import { EventEmitter } from "events";
 
-declare module "modbus-stream" {
+declare module "modbus-stream-core" {
     class Mutex {
         constructor(onComplete: () => void);
 
@@ -36,66 +34,6 @@ declare module "modbus-stream" {
     }
 
     type CallbackType = (err?: any, result?: any) => void;
-
-    class TCPStream extends Stream {
-        readCoils(
-            options?: StreamReadOption & {
-                transactionId?: number;
-                unitId?: number;
-            },
-            next?: (
-                err: Error | null,
-                info?: UnwrappedData & {
-                    response: ReadCoilResponse;
-                }
-            ) => void
-        ): void;
-
-        readDiscreteInputs(
-            options?: StreamReadOption & {
-                transactionId?: number;
-                unitId?: number;
-            },
-            next?: (
-                err: Error | null,
-                info?: UnwrappedData & {
-                    response: ReadCoilResponse;
-                }
-            ) => void
-        ): void;
-
-        readInputRegisters(
-            options?: StreamReadOption & {
-                transactionId?: number;
-                unitId?: number;
-            },
-            next?: (
-                err: Error | null,
-                info?: UnwrappedData & {
-                    response: {
-                        code: string;
-                        data: Buffer[];
-                    };
-                }
-            ) => void
-        ): void;
-
-        readHoldingRegisters(
-            options?: StreamReadOption & {
-                transactionId?: number;
-                unitId?: number;
-            },
-            next?: (
-                err: Error | null,
-                info?: UnwrappedData & {
-                    response: {
-                        code: string;
-                        data: Buffer[];
-                    };
-                }
-            ) => void
-        ): void;
-    }
 
     class Stream extends EventEmitter {
         constructor(transport: any, options: StreamOptions);
@@ -297,43 +235,6 @@ declare module "modbus-stream" {
         prepare(options: TCPTransportOptions): (stream: Stream) => TCPTransport;
     }
 
-    interface TCPDriverOptions extends TCPTransportOptions, StreamOptions {
-        connectTimeout?: number;
-    }
-
-    class TCPDriver {
-        connect(
-            port?: number,
-            host?: string,
-            options?: TCPDriverOptions,
-            next?: (err: Error | null, connection: TCPStream) => void
-        ): {
-            attach: (
-                transport: CallbackType,
-                next: (err: Error | null, connection: TCPStream) => void
-            ) => Socket;
-        };
-        connect(
-            port?: number,
-            options?: TCPDriverOptions,
-            next?: (err: Error | null, connection: TCPStream) => void
-        ): {
-            attach: (
-                transport: CallbackType,
-                next: (err: Error | null, connection: TCPStream) => void
-            ) => Socket;
-        };
-
-        server(
-            options: StreamOptions
-        ): {
-            attach: (
-                transport: BaseTransport,
-                next: (connection: TCPStream) => void
-            ) => Server;
-        };
-    }
-
     interface SerialTransportOptions extends BaseTransportOptions {
         slaveId?: number;
         maxDataInterval?: number;
@@ -354,41 +255,6 @@ declare module "modbus-stream" {
         static prepare(options?: SerialTransportOptions): (stream: Stream) => SerialTransport;
     }
 
-    interface SerialDriverOptions extends StreamOptions {
-        baudRate?: number;
-        dataBits?: number;
-        stopBits?: number;
-        parity?: string;
-    }
-
-    class SerialDriver {
-        connect(device: string, options?: SerialDriverOptions): {
-            attach: (transport: SerialTransport, next: (err?: any, connection?: Stream) => void) => any;
-        };
-    }
-
-    class UdpStream extends Readable {
-        constructor(msg: Buffer, info: AddressInfo);
-    }
-
-    class UDPDriver {
-        connect(port?: number, host?: string, options?: {}): {
-            attach: (
-                transport: any,
-                next: (err: Error | null, connection: TCPStream) => void
-            ) => Socket;
-        };
-
-        server(
-            options: StreamOptions
-        ): {
-            attach: (
-                transport: BaseTransport,
-                next: (connection: TCPStream) => void
-            ) => Server;
-        };
-    }
-
     interface ASCIITransportOptions {
         slaveId?: number;
     }
@@ -407,46 +273,6 @@ declare module "modbus-stream" {
         tcp: TCPTransport;
         ascii: ASCIITransport;
         serial: SerialTransport;
-    };
-
-    const drivers: {
-        tcp: TCPDriver;
-        udp: UDPDriver;
-        serial: SerialDriver;
-    };
-
-    const tcp: {
-        connect(
-            port?: number,
-            host?: string,
-            options?: TCPDriverOptions,
-            next?: (err: Error | null, connection: TCPStream) => void
-        ): void;
-        server(
-            options: StreamOptions,
-            next: (connection: TCPStream) => void
-        ): Server;
-    };
-
-    const udp: {
-        connect(
-            port?: number,
-            host?: string,
-            options?: TCPDriverOptions,
-            next?: (err: Error | null, connection: TCPStream) => void
-        ): void;
-        server(
-            options: StreamOptions,
-            next: (connection: TCPStream) => void
-        ): Server;
-    };
-
-    const serial: {
-        connect(
-            device?: string,
-            options?: SerialDriverOptions & SerialTransportOptions,
-            next?: (err: Error | null, connection: Stream) => void
-        ): void;
     };
 
     // @todo reference to modbus-pdu (missing types)

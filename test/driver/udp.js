@@ -1,8 +1,7 @@
 var dgram    = require("dgram");
 var Readable = require("stream").Readable;
 var util     = require("util");
-var pdu      = require("modbus-pdu");
-var stream   = require("../stream");
+const {stream } = require("../../")
 
 function Driver() {
 

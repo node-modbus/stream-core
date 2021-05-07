@@ -50,7 +50,7 @@ exports.print_buffer = function (buf) {
 	return "<" + buffer.values(buf).map(function (v) { return (v < 16 ? "0" : "") + v.toString(16); }).join(" ") + ">";
 };
 
-exports.modbus = require("../");
+exports.modbus = require("./modbus");
 exports.buffer = buffer;
 
 function EmptyStream(options) {

@@ -1,5 +1,4 @@
-var stream = require("../stream");
-var pdu    = require("modbus-pdu");
+const {pdu, stream } = require("../../")
 
 function Driver() {
 

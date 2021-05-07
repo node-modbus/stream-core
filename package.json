@@ -1,25 +1,32 @@
 {
-	"name"         : "modbus-stream",
-	"version"      : "0.46.0",
-	"author"       : "Diogo Resende <dresende@thinkdigital.pt>",
-	"repository"   : "https://github.com/node-modbus/stream",
-	"license"      : "MIT",
-	"keywords"     : [ "modbus", "serial", "rtu", "ascii", "tcp", "stream" ],
-	"main"         : "lib/modbus",
-	"types"        : "types",
-	"scripts"      : {
-		"test"   : "node test/run",
-		"dtslint": "dtslint types"
-	},
-	"dependencies" : {
-		"@types/node": "latest",
-		"modbus-pdu" : "^1.13.0"
-	},
-	"peerDependencies" : {
-		"serialport" : ">=1.7.1 <7"
-	},
-	"devDependencies" : {
-		"dtslint"   : "^0.4.2",
-		"mocha"     : "^6.2.0"
-	}
+  "name": "modbus-stream-core",
+  "version": "0.46.0",
+  "author": "Yonggang Luo <luoyonggang@gmail.com>",
+  "contributors": [
+    "Diogo Resende <dresende@thinkdigital.pt>"
+  ],
+  "repository": "https://github.com/lygstate/stream.git",
+  "license": "MIT",
+  "keywords": [
+    "modbus",
+    "rtu",
+    "ascii",
+    "stream"
+  ],
+  "main": "lib/modbus",
+  "types": "types",
+  "scripts": {
+    "test": "node test/run",
+    "dtslint": "dtslint types"
+  },
+  "dependencies": {
+    "@types/node": "latest",
+    "modbus-pdu": "^1.13.1"
+  },
+  "devDependencies": {
+    "dtslint": "^4.0.9",
+    "mocha": "^8.4.0",
+    "serialport": "^9",
+    "typescript": "^4.2.4"
+  }
 }
