@@ -1,6 +1,6 @@
 {
   "name": "modbus-stream-core",
-  "version": "0.46.0",
+  "version": "0.1.0",
   "author": "Yonggang Luo <luoyonggang@gmail.com>",
   "contributors": [
     "Diogo Resende <dresende@thinkdigital.pt>"
