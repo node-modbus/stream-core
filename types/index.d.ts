@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
+import { Duplex } from "stream"
 
 declare module "modbus-stream-core" {
     class Mutex {
@@ -33,10 +34,10 @@ declare module "modbus-stream-core" {
         data: boolean[];
     }
 
-    type CallbackType = (err?: any, result?: any) => void;
+    type CallbackType = (err?: Error, result?: any) => void;
 
     class Stream extends EventEmitter {
-        constructor(transport: any, options: StreamOptions);
+        constructor(transport: BaseTransport, options: StreamOptions);
 
         on(event: "error", listener: (error: any) => void): this;
         on(event: "close", listener: () => void): this;
@@ -48,9 +49,9 @@ declare module "modbus-stream-core" {
             ) => void
         ): this;
 
-        close(next: CallbackType): void;
+        close(next?: CallbackType): void;
 
-        write(data: Buffer, options: {}, next: CallbackType): void;
+        write(data: Buffer, options: {}, next?: CallbackType): void;
         write(data: Buffer, next: CallbackType): void;
 
         readCoils(
@@ -176,7 +177,7 @@ declare module "modbus-stream-core" {
         readFifoQueue(options: StreamSimpleOptions, next?: CallbackType): void;
     }
 
-    const stream: Stream;
+    const stream: typeof Stream
 
     interface BaseTransportOptions {
         retries?: number;
@@ -202,7 +203,7 @@ declare module "modbus-stream-core" {
     }
 
     class BaseTransport {
-        constructor(stream: Stream, options: BaseTransportOptions);
+        constructor(stream: Duplex, options: BaseTransportOptions);
 
         close(next?: CallbackType): void;
 
@@ -222,7 +223,7 @@ declare module "modbus-stream-core" {
     }
 
     class TCPTransport extends BaseTransport {
-        constructor(stream: Stream, options: TCPTransportOptions);
+        constructor(stream: Duplex, options?: TCPTransportOptions);
 
         wrap(pdu: any, options: TCPTransportOptions, next?: CallbackType): Buffer;
 
@@ -242,7 +243,7 @@ declare module "modbus-stream-core" {
     }
 
     class SerialTransport extends BaseTransport {
-        constructor(options?: SerialTransportOptions);
+        constructor(stream: Duplex, options?: SerialTransportOptions);
 
         wrap(pdu: any, options?: SerialTransportOptions, next?: () => void): Buffer;
 
@@ -260,6 +261,7 @@ declare module "modbus-stream-core" {
     }
 
     class ASCIITransport extends BaseTransport {
+        constructor(stream: Duplex, options?: ASCIITransportOptions);
         wrap(pdu: any, options?: ASCIITransportOptions, next?: () => void): Buffer;
 
         unwrap(data: Buffer): UnwrappedData;
@@ -270,11 +272,35 @@ declare module "modbus-stream-core" {
     }
 
     const transports: {
-        tcp: TCPTransport;
-        ascii: ASCIITransport;
-        serial: SerialTransport;
+        tcp: typeof TCPTransport;
+        ascii: typeof ASCIITransport;
+        serial: typeof SerialTransport;
     };
 
+    interface PduExceptionCode {
+        code: number;
+        exception: number
+    }
+
+    interface PduException {
+        readonly IllegalFunction: number;
+        readonly IllegalDataAddress: number;
+        readonly IllegalDataValue: number;
+        readonly ServerDeviceFailure: number;
+        readonly Aknowledge: number;
+        readonly ServerDeviceBusy: number;
+        readonly MemoryParityError: number;
+        readonly GatewayPathUnavailable: number;
+        readonly GatewayTargetDeviceFailedToRespond: number;
+
+        load(functs: any): void
+        error(reason: string): Error
+        build(fcode: number, code: string | number): Buffer
+        parse(buffer: Buffer): PduExceptionCode
+    }
+
     // @todo reference to modbus-pdu (missing types)
-    const pdu: any;
+    const pdu: {
+        Exception: PduException,
+    };
 }

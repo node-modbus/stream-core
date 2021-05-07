@@ -13,17 +13,13 @@ This is a NodeJS module to help you process modbus data. It uses [pdu](https://g
     - [x] TCP
     - [x] RTU
     - [x] ASCII
-- [x] Support drivers
-    - [x] TCP
-    - [x] UDP
-    - [x] Serial (RS232, RS485)
 
 ### Example
 
 This is my current `test.js` file. It creates a client and a server network socket and the server requests coils as soon as the client connects.
 
 ```js
-var modbus = require("modbus-stream");
+var modbus = require("modbus-stream-core");
 
 modbus.tcp.server({ debug: "server" }, (connection) => {
     connection.readCoils({ address: 5, quantity: 8 }, (err, info) => {

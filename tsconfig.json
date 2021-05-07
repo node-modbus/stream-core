@@ -11,14 +11,14 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "modbus-stream": [
+      "modbus-stream-core": [
         "."
       ]
     },
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts",
-    "test.ts"
+    "types/index.d.ts",
+    "types/test.ts"
   ]
 }
