@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import { Server, Socket, AddressInfo } from "net";
 import { Readable } from "stream";
+import { EventEmitter } from "events";
 
 declare module "modbus-stream" {
     class Mutex {
@@ -96,7 +97,7 @@ declare module "modbus-stream" {
         ): void;
     }
 
-    class Stream extends NodeJS.EventEmitter {
+    class Stream extends EventEmitter {
         constructor(transport: any, options: StreamOptions);
 
         on(event: "error", listener: (error: any) => void): this;
