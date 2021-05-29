@@ -16,15 +16,11 @@
   "main": "lib/modbus",
   "types": "types",
   "scripts": {
-    "test": "node test/run",
-    "dtslint": "dtslint types"
+    "test": "node test/run"
   },
-  "dependencies": {
-    "modbus-pdu": "^1.13.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^14.14.44",
-    "dtslint": "^4.0.9",
     "mocha": "^8.4.0",
     "modbus-stream-core": "file:./",
     "serialport": "^9",

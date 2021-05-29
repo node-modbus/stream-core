@@ -1,4 +1,4 @@
-const modbus_core = require("../");
+const modbus_core = require("modbus-stream-core");
 
 exports.transports = modbus_core.transports
 exports.stream = modbus_core.stream

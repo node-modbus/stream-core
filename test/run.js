@@ -6,7 +6,7 @@ var locations = [
 	// modbus stream
 	path.normalize(path.join(__dirname, "integration")),
 	// modbus pdu
-	path.normalize(path.join(__dirname, "..", "node_modules/modbus-pdu/test/integration")),
+	path.normalize(path.join(__dirname, "pdu", "integration")),
 ];
 
 locations.map(function (location) {
