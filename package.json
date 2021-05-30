@@ -1,6 +1,6 @@
 {
   "name": "modbus-stream-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Yonggang Luo <luoyonggang@gmail.com>",
   "contributors": [
     "Diogo Resende <dresende@thinkdigital.pt>"
@@ -20,11 +20,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^14.14.44",
+    "@types/node": "^15.6.1",
     "mocha": "^8.4.0",
     "modbus-stream-core": "file:./",
     "serialport": "^9",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
   }
 }
