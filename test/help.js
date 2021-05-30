@@ -51,6 +51,7 @@ exports.print_buffer = function (buf) {
 };
 
 exports.modbus = require("./modbus");
+exports.Protocols = exports.modbus.pdu.Protocols;
 exports.buffer = buffer;
 
 function EmptyStream(options) {

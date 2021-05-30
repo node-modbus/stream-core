@@ -300,9 +300,14 @@ declare module "modbus-stream-core" {
         readonly GatewayTargetDeviceFailedToRespond: number;
     }
 
+    interface PduProtocols {
+        [key: string]: any;
+    }
+
     // @todo reference to modbus-pdu (missing types)
     const pdu: {
         ExceptionCode: PduExceptionCode,
         Exception: PduException,
+        Protocols: PduProtocols
     };
 }

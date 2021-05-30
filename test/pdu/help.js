@@ -1,7 +1,8 @@
-var assert = require("assert");
 const modbus_core = require("modbus-stream-core");
 
-exports.modbus = modbus_core.pdu;
+const pdu = Object.assign({}, modbus_core.pdu, modbus_core.pdu.Protocols);
+
+exports.modbus = pdu;
 exports.trials = 100;
 
 exports.startEndAddress = function startEndAddress(fc, start, end) {

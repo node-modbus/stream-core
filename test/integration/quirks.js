@@ -32,7 +32,7 @@ describe("transport quirks", function () {
 				responses += 1;
 			});
 
-			var res = stream.transport.wrap(help.modbus.pdu.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
+			var res = stream.transport.wrap(help.Protocols.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
 
 			stream.transport.stream.push(res);
 
@@ -73,7 +73,7 @@ describe("transport quirks", function () {
 				responses += 1;
 			});
 
-			var res = stream.transport.wrap(help.modbus.pdu.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
+			var res = stream.transport.wrap(help.Protocols.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
 
 			res = help.buffer.concat([ res, res, res ]);
 
@@ -110,7 +110,7 @@ describe("transport quirks", function () {
 				responses += 1;
 			});
 
-			var res = stream.transport.wrap(help.modbus.pdu.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
+			var res = stream.transport.wrap(help.Protocols.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
 
 			stream.transport.stream.push(res);
 
@@ -131,7 +131,7 @@ describe("transport quirks", function () {
 			var stream    = new help.modbus.stream(transport, {
 				debug : (debug ? "serial" : null)
 			});
-			var res = stream.transport.wrap(help.modbus.pdu.ReadCoils.Request.build(2, 4), { slaveId: 10 });
+			var res = stream.transport.wrap(help.Protocols.ReadCoils.Request.build(2, 4), { slaveId: 10 });
 
 			stream.on("read-coils", function (req, reply) {
 				assert.equal(req.slaveId, 10);
@@ -176,7 +176,7 @@ describe("transport quirks", function () {
 				responses += 1;
 			});
 
-			var res = stream.transport.wrap(help.modbus.pdu.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
+			var res = stream.transport.wrap(help.Protocols.ReadCoils.Response.build([ 1 ]), { transactionId: 10 });
 
 			stream.transport.stream.push(res);
 
