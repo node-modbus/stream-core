@@ -277,12 +277,18 @@ declare module "modbus-stream-core" {
         serial: typeof SerialTransport;
     };
 
-    interface PduExceptionCode {
-        code: number;
-        exception: number
+    interface PduExceptionParseResult {
+        code: string;
+        exception: string
     }
 
     interface PduException {
+        error(reason: string): Error
+        build(fcode: number, code: string | number): Buffer
+        parse(buffer: Buffer): PduExceptionParseResult
+    }
+
+    interface PduExceptionCode {
         readonly IllegalFunction: number;
         readonly IllegalDataAddress: number;
         readonly IllegalDataValue: number;
@@ -292,15 +298,11 @@ declare module "modbus-stream-core" {
         readonly MemoryParityError: number;
         readonly GatewayPathUnavailable: number;
         readonly GatewayTargetDeviceFailedToRespond: number;
-
-        load(functs: any): void
-        error(reason: string): Error
-        build(fcode: number, code: string | number): Buffer
-        parse(buffer: Buffer): PduExceptionCode
     }
 
     // @todo reference to modbus-pdu (missing types)
     const pdu: {
+        ExceptionCode: PduExceptionCode,
         Exception: PduException,
     };
 }
